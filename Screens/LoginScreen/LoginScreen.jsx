@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Text, TextInput, Button, Alert, Pressable } from 'react-native';
+import { Text, TextInput, Button, Alert, Pressable, View } from 'react-native';
 import {
   ButtonStyle,
   InputStyle,
@@ -22,7 +22,7 @@ export const LoginScreen = () => {
     Alert.alert('Credentials', `${email}+${password}`);
   };
   return (
-    <>
+    <View>
       <Text style={HeaderStyle}>Login</Text>
       <Text>Name</Text>
       <TextInput
@@ -31,6 +31,7 @@ export const LoginScreen = () => {
         onChangeText={onInputEmail}
         style={InputStyle}
         autoFocus
+        textAlign="center"
       />
       <Text>Password</Text>
       <TextInput
@@ -39,12 +40,13 @@ export const LoginScreen = () => {
         onChangeText={onInputPassword}
         style={InputStyle}
         autoFocus
+        textAlign="center"
       />
       <Pressable onPress={onLogin} style={ButtonStyle}>
         <Text style={ButtonTextStyle}>Login</Text>
       </Pressable>
       {/* <Button title="Login" onPress={onLogin} style={ButtonStyle} /> */}
       {/* <Text>Create new account</Text> */}
-    </>
+    </View>
   );
 };

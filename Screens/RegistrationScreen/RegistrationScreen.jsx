@@ -1,73 +1,104 @@
-import { useState } from "react";
-import { Text, TextInput, Button, Alert, Pressable } from "react-native";
+import { useState } from 'react';
+import {
+  Text,
+  TextInput,
+  Button,
+  Alert,
+  Pressable,
+  View,
+  Keyboard,
+} from 'react-native';
 import {
   ButtonStyle,
   InputStyle,
   HeaderStyle,
   ButtonTextStyle,
-} from "./RegistrationScreen.styled";
+  FormStyle,
+  inputTitle,
+} from './RegistrationScreen.styled';
 
-export const RegistrationScreen = () => {
-  const [email, setEmail] = useState("");
+export const RegistrationScreen = ({ onSubmitRegData }) => {
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-
-  const onInputName = (text) => {
+  const onInputName = text => {
     setName(text);
   };
 
-  const onInputEmail = (text) => {
+  const onInputEmail = text => {
     setEmail(text);
   };
 
-  const onInputPassword = (text) => {
+  const onInputPassword = text => {
     setPassword(text);
   };
 
   const onRegistration = () => {
+    Keyboard.dismiss();
+    const data = { name, email, password };
+    onSubmitRegData(data);
     Alert.alert(
-      "Credentials:",
+      'Credentials:',
 
       `name:${name},
       email:${email},
       password:${password}`
     );
     // console.log("name:", name);
+    clearForm();
+  };
+  const clearForm = () => {
+    setEmail('');
+    setName('');
+    setPassword('');
   };
   return (
     <>
-      <Text style={HeaderStyle}>Registration</Text>
-      <Text>Email</Text>
+      <View style={FormStyle}>
+        <Text style={HeaderStyle}>Registration</Text>
+        <View>
+          <Text style={inputTitle}>Email</Text>
 
-      <TextInput
-        placeholder="Write email"
-        value={email}
-        onChangeText={onInputEmail}
-        style={InputStyle}
-        autoFocus
-      />
-      <Text>name</Text>
+          <TextInput
+            placeholder="Write email"
+            value={email}
+            onChangeText={onInputEmail}
+            style={InputStyle}
+            autoFocus
+            textAlign="center"
+          />
+        </View>
+        <View>
+          <Text style={inputTitle}>name</Text>
 
-      <TextInput
-        placeholder="Write name"
-        value={name}
-        onChangeText={onInputName}
-        style={InputStyle}
-        autoFocus
-      />
-      <Text>Password</Text>
-      <TextInput
-        placeholder="Write password"
-        value={password}
-        onChangeText={onInputPassword}
-        style={InputStyle}
-        autoFocus
-      />
-      <Pressable onPress={onRegistration} style={ButtonStyle}>
-        <Text style={ButtonTextStyle}>Register</Text>
-      </Pressable>
-      {/* <Button title="Register" onPress={onRegistration} style={ButtonStyle} /> */}
+          <TextInput
+            placeholder="Write name"
+            value={name}
+            onChangeText={onInputName}
+            style={InputStyle}
+            autoFocus
+            textAlign="center"
+          />
+        </View>
+        <View>
+          <Text style={inputTitle}>Password</Text>
+          <TextInput
+            placeholder="Write password"
+            value={password}
+            onChangeText={onInputPassword}
+            style={InputStyle}
+            autoFocus
+            textAlign="center"
+            secureTextEntry
+          />
+        </View>
+
+        <Pressable onPress={onRegistration} style={ButtonStyle}>
+          <Text style={ButtonTextStyle}>Register</Text>
+        </Pressable>
+        {/* <Button title="Register" onPress={onRegistration} style={ButtonStyle} /> */}
+      </View>
     </>
   );
 };
